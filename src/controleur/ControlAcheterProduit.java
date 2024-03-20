@@ -3,7 +3,6 @@ package controleur;
 import villagegaulois.Village;
 import villagegaulois.Etal;
 import personnages.Gaulois;
-import frontiere.Clavier;
 
 public class ControlAcheterProduit {
 	private Village village;
@@ -18,32 +17,30 @@ public class ControlAcheterProduit {
 		this.controlTrouverEtalVendeur = controlTrouverEtalVendeur;
 	}
 	
+
+	public String[] listeCommercant(String produit) {
+		
+		Gaulois[] gauloisCommercants = village.rechercherVendeursProduit(produit);
+		String[] commercants = new String[gauloisCommercants.length];
+		if(gauloisCommercants.length != 0) {
+			for(int i = 0; i<gauloisCommercants.length; i++) {
+				commercants[i] = gauloisCommercants[i].getNom();
+			}
+		}
+		return commercants;
+	}
+	
 	public boolean verifierIdentite(String nomVendeur) {
 		return controlVerifierIdentite.verifierIdentite(nomVendeur);
 	}
-	public Gaulois[] chercherVendeurs(String produit) {
-		return village.rechercherVendeursProduit(produit);
+	
+	
+	public int acheterProduit(String nomVendeur, int quantite) {
+		
+		Etal etalRecherche = controlTrouverEtalVendeur.trouverEtalVendeur(nomVendeur);
+		
+		return etalRecherche.acheterProduit(quantite);
 	}
 	
-	public Gaulois choisirVendeur(Gaulois[] vendeurs, String produit) {
-		for(int i = 0; i<vendeurs.length; i++) {
-			Etal etalVendeurAcc = village.rechercherEtal(vendeurs[i]);
-			System.out.println( i + "." + " Le vendeur + " + vendeurs[i] + " vend " + etalVendeurAcc.getQuantite() + " " + etalVendeurAcc.getProduit() + "\n");
-		}
-
-		int numVendeur = Clavier.entrerEntier("Chez quel commerçant voulez-vous acheter des " + produit + "?");
-		//verification que le vendeur existe
-		
-		return vendeurs[numVendeur];
-	}
-	
-	public int acheterProduit(String vendeur, int quantite) {
-		
-		Gaulois gauloisVendeur = village.trouverHabitant(vendeur);
-		
-		Etal etalRecherche = village.rechercherEtal(gauloisVendeur);
-		return  etalRecherche.acheterProduit(quantite);
-	
-	}
-
 }
+

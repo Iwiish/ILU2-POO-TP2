@@ -23,6 +23,7 @@ public class BoundaryPrendreEtal {
 			if(!etalDisponible) {
 				System.out.println("Désolée " + nomVendeur + " je n'ai plus d'étal qui ne soit pas occupé.");
 			}else {
+				System.out.println("C'est parfait, il me reste un étal pour vous !");
 				installerVendeur(nomVendeur);
 			}
 		}
@@ -30,11 +31,7 @@ public class BoundaryPrendreEtal {
 	}
 
 	private void installerVendeur(String nomVendeur) {
-		System.out.println("C'est parfait, il me reste un étal pour vous !");
-		System.out.println("Il me faudrait quelques renseignements");
-		
-		StringBuilder question1 = new StringBuilder(); 
-		question1.append("Quel produit souhaitez-vous vendre ?");
+		System.out.println("Il me faudrait quelques renseignements\n\rQuel produit souhaitez-vous vendre ?");
 		String produit = scan.next();
 		
 		StringBuilder question2 = new StringBuilder(); 

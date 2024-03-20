@@ -27,10 +27,10 @@ public class BoundaryEmmenager {
 					break;
 
 				case 2:
-					System.out.println("Bienvenue villageois" + nomVisiteur);
-					StringBuilder questionV1 = new StringBuilder(); 
-					question.append("Quelle est votre force ?"); 
-					int force = Clavier.entrerEntier(question.toString());
+					System.out.println("Bienvenue villageois " + nomVisiteur);
+					StringBuilder question2 = new StringBuilder(); 
+					question2.append("Quelle est votre force ?"); 
+					int force = Clavier.entrerEntier(question2.toString());
 					controlEmmenager.ajouterGaulois(nomVisiteur, force);
 					
 					break;

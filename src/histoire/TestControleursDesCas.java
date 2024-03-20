@@ -158,16 +158,8 @@ public class TestControleursDesCas {
 		for (String etal : marche) {
 			System.out.println(etal);
 		}
+
 		
-/*Obelix
-5
-fleur
-Obelix
-3
-menhirs
-Asterix
-10
-poissons*/
 //		Sortie Console :
 //		Cas 7 : Afficher Marche
 //		Obelix

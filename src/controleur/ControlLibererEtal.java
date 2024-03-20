@@ -1,5 +1,6 @@
 package controleur;
 
+import personnages.Gaulois;
 import villagegaulois.Etal;
 
 public class ControlLibererEtal {
@@ -15,6 +16,7 @@ public class ControlLibererEtal {
 		Etal etalTrouve = controlTrouverEtalVendeur.trouverEtalVendeur(nomVendeur);
 		if(etalTrouve!= null) {
 			donneesEtal = etalTrouve.etatEtal();
+			etalTrouve.libererEtal();
 		}
 		return donneesEtal;
 	}

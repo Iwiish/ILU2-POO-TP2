@@ -3,7 +3,6 @@ package frontiere;
 import java.util.Scanner;
 
 import controleur.ControlAcheterProduit;
-import personnages.Gaulois;
 
 public class BoundaryAcheterProduit {
 	private Scanner scan = new Scanner(System.in);
@@ -14,26 +13,53 @@ public class BoundaryAcheterProduit {
 	}
 
 	public void acheterProduit(String nomAcheteur) {
-		//verifier identite
 		if(controlAcheterProduit.verifierIdentite(nomAcheteur)) {
-			//si ok le client donne produit qu'il est venu acheter
-			StringBuilder question1 = new StringBuilder(); 
-			question1.append("Quel produit voulez-vous acheter ?");
+			System.out.println("Quel produit voulez-vous acheter ?");
 			String produit = scan.next();
-			//présenter tous les vendeurs
-			Gaulois[] vendeurs = controlAcheterProduit.chercherVendeurs(produit);
-			if(vendeurs.length != 0) {
-				Gaulois gauloisVendeur = controlAcheterProduit.choisirVendeur(vendeurs, produit);
+			
+			String[] listeCommercant = controlAcheterProduit.listeCommercant(produit);
+			
+			if(listeCommercant.length == 0) {
+				System.out.println("Désolé personne ne vend ce produit");
+			}else {
+				for(int i = 0; i<listeCommercant.length; i ++) {
+					System.out.println((i+1) + ". " + listeCommercant[i]);
+				}
+				
+				int numCommercant;
+	            while (true) {
+	                numCommercant = Clavier.entrerEntier("Chez quel commercant voulez-vous acheter vos " + produit);
+	                if (numCommercant >= 1 && numCommercant <= listeCommercant.length) {
+	                    break;
+	                } else {
+	                    System.out.println("Veuillez entrer un chiffre positif et inférieur ou égal à " + listeCommercant.length);
+	                }
+	            }
+
+		        System.out.println(numCommercant);
+		        
+				String nomVendeur = listeCommercant[numCommercant-1];
 				
 				int quantite = Clavier.entrerEntier("Combien de " + produit + " voulez-vous acheter ?");
-				int quantiteAcheter = controlAcheterProduit.acheterProduit(gauloisVendeur.getNom(), quantite);
 				
-			}else {
-				System.out.println("Désolé, personne ne vend ce produit au marché.");
-			}
+				int quantiteAchete = controlAcheterProduit.acheterProduit(nomVendeur, quantite);
+				
+				if(quantiteAchete<quantite && quantiteAchete != 0) {
+					System.out.println(nomAcheteur + " veut acheter " + quantite + " " + produit 
+							+ ", malheureusement il n'en reste que " + quantiteAchete + "." + nomAcheteur + " vide le stock de " + nomVendeur);
+				}else if(quantiteAchete == 0) {
+					System.out.println(nomAcheteur + " veut acheter " + quantite + " " + produit 
+							+ ", malheureusement il n'y en a plus.");
+				}else {
+					System.out.println(nomAcheteur + " achète " + quantite + " " + produit + ".");
+				}
 			
-		}else {
-			System.out.println("Je suis désolée " + nomAcheteur + " mais il faut être un habitant de notre village pour commercer ici.");
 		}
+	}else {
+		System.out.println("Je suis désolée " + nomAcheteur + " mais il faut être un habitant de notre village pour commercer ici.");
 	}
+
+	}
+	
 }
+

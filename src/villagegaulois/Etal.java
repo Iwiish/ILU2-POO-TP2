@@ -38,6 +38,7 @@ public class Etal {
 	}
 
 	public int acheterProduit(int quantiteAcheter) {
+
 		if (quantite == 0) {
 			quantiteAcheter = 0;
 		}
@@ -47,6 +48,7 @@ public class Etal {
 		if (etalOccupe) {
 			quantite -= quantiteAcheter;
 		}
+
 		return quantiteAcheter;
 	}
 
